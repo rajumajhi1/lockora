@@ -54,12 +54,13 @@ export const initScrollAnimations = () => {
   }, []);
 };
 
-export type MouseParallaxProps = {
+export interface MouseParallaxProps {
   factor?: number;
   className?: string;
-};
+  children?: React.ReactNode;
+}
 
-export const MouseParallax: React.FC<React.PropsWithChildren<MouseParallaxProps>> = ({ 
+export const MouseParallax: React.FC<MouseParallaxProps> = ({ 
   children, 
   factor = 0.05,
   className = '' 
