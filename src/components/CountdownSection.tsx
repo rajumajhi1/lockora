@@ -118,21 +118,6 @@ const CountdownSection: React.FC = () => {
             </div>
           </MouseParallax>
           
-          {/* Calendar Icon - Improved design */}
-          <div className="flex justify-center mb-10 md:mb-16">
-            <div className="w-20 h-20 sm:w-24 sm:h-24 relative animate-float">
-              <div className="absolute inset-0 bg-lockora-emerald/30 rounded-xl blur-xl"></div>
-              <div className="relative w-full h-full bg-gradient-to-b from-white/15 to-white/5 backdrop-blur-xl rounded-xl border border-white/20 flex flex-col items-center justify-center overflow-hidden shadow-lg">
-                <div className="bg-gradient-to-r from-lockora-emerald to-lockora-emerald/80 w-full py-1 sm:py-2 text-xs text-white font-semibold">
-                  {launchDate.toLocaleString('default', { month: 'short' })}
-                </div>
-                <div className="text-2xl sm:text-3xl font-bold text-white mt-1 sm:mt-2">
-                  {launchDate.getDate()}
-                </div>
-              </div>
-            </div>
-          </div>
-          
           {/* Newsletter signup with updated styling */}
           <div className="max-w-xl mx-auto bg-gradient-to-b from-white/10 to-transparent backdrop-blur-lg p-5 sm:p-8 rounded-2xl border border-white/10 shadow-lg">
             <NewsletterSignup />
