@@ -9,12 +9,10 @@ import Footer from '../components/Footer';
 import { initScrollAnimations } from '../utils/animations';
 
 const Index: React.FC = () => {
-  // Initialize scroll animations
-  initScrollAnimations();
-  
-  // Scroll to top on component mount
+  // Initialize scroll animations and scroll to top on component mount
   useEffect(() => {
     window.scrollTo(0, 0);
+    initScrollAnimations();
   }, []);
 
   return (

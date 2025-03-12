@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from 'react';
 
 export const useIntersectionObserver = (options = {}) => {
@@ -34,24 +33,20 @@ export const useIntersectionObserver = (options = {}) => {
 };
 
 export const initScrollAnimations = () => {
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-        }
-      });
-    }, {
-      threshold: 0.1
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+      }
     });
+  }, {
+    threshold: 0.1
+  });
 
+  setTimeout(() => {
     const elements = document.querySelectorAll('.reveal');
     elements.forEach(el => observer.observe(el));
-
-    return () => {
-      elements.forEach(el => observer.unobserve(el));
-    };
-  }, []);
+  }, 100);
 };
 
 export interface MouseParallaxProps {
