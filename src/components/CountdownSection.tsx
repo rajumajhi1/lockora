@@ -11,7 +11,7 @@ const calculateLaunchDate = () => {
 };
 
 const CountdownSection: React.FC = () => {
-  const launchDate = calculateLaunchDate();
+  const [launchDate] = useState(calculateLaunchDate());
   const [timeRemaining, setTimeRemaining] = useState({
     days: 30,
     hours: 0,
@@ -40,45 +40,53 @@ const CountdownSection: React.FC = () => {
       setTimeRemaining({ days, hours, minutes, seconds });
     };
     
+    // Initial calculation
     calculateTimeRemaining();
+    
+    // Set up interval to update every second
     const timer = setInterval(calculateTimeRemaining, 1000);
     
+    // Cleanup interval on component unmount
     return () => clearInterval(timer);
   }, [launchDate]);
 
   const CountdownUnit: React.FC<{ value: number; label: string }> = ({ value, label }) => (
     <div className="flex flex-col items-center">
-      <div className="backdrop-blur-xl relative px-3 sm:px-4 md:px-6 py-3 sm:py-4 md:py-5 rounded-xl text-center min-w-[70px] sm:min-w-[80px] md:min-w-[110px] bg-gradient-to-b from-white/10 to-white/5 border border-white/20 shadow-lg">
-        <div className="text-xl sm:text-2xl md:text-5xl font-bold text-white">
+      <div className="relative flex flex-col items-center justify-center px-3 sm:px-5 md:px-8 py-4 sm:py-6 md:py-8 rounded-xl text-center 
+                      min-w-[60px] sm:min-w-[80px] md:min-w-[120px] bg-gradient-to-b from-lockora-navy/90 to-black/60 
+                      border border-lockora-emerald/20 shadow-[0_0_15px_rgba(54,179,126,0.2)] backdrop-blur-md">
+        <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent rounded-xl overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-lockora-emerald/30 to-transparent"></div>
+          <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+        </div>
+        <div className="text-2xl sm:text-3xl md:text-5xl xl:text-6xl font-bold text-white relative z-10">
           {value.toString().padStart(2, '0')}
         </div>
-        <div className="absolute -top-px left-0 right-0 h-px bg-gradient-to-r from-transparent via-lockora-emerald/30 to-transparent"></div>
-        <div className="absolute -bottom-px left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+        <span className="text-xs sm:text-sm mt-1 sm:mt-2 font-medium text-lockora-silver/80 relative z-10">{label}</span>
       </div>
-      <span className="text-xs sm:text-sm mt-2 sm:mt-3 font-medium text-lockora-silver">{label}</span>
     </div>
   );
 
   return (
     <section id="countdown" className="py-16 md:py-24 relative overflow-hidden">
       <div className="absolute inset-0 z-0">
-        {/* New background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-lockora-navy to-lockora-dark"></div>
+        {/* Enhanced background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-lockora-navy/90 to-lockora-dark"></div>
         
-        {/* Enhanced particle background */}
+        {/* Particle effect background */}
         <div className="absolute inset-0" style={{ 
-          background: 'radial-gradient(circle at 20% 80%, rgba(54, 179, 126, 0.05) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(77, 168, 255, 0.05) 0%, transparent 50%)',
+          background: 'radial-gradient(circle at 30% 70%, rgba(54, 179, 126, 0.08) 0%, transparent 50%), radial-gradient(circle at 70% 30%, rgba(77, 168, 255, 0.08) 0%, transparent 50%)',
           backgroundSize: '100% 100%',
-          opacity: 0.8 
+          opacity: 0.9 
         }}></div>
         
         {/* Animated gradient orbs */}
-        <div className="absolute top-1/4 right-1/3 w-96 h-96 rounded-full bg-lockora-emerald/10 blur-[120px] animate-pulse-slow"></div>
-        <div className="absolute bottom-1/4 left-1/3 w-80 h-80 rounded-full bg-lockora-accent/10 blur-[100px] animate-pulse-slow" style={{animationDelay: '-2s'}}></div>
+        <div className="absolute top-1/3 right-1/4 w-96 h-96 rounded-full bg-lockora-emerald/10 blur-[120px] animate-pulse-slow"></div>
+        <div className="absolute bottom-1/3 left-1/4 w-80 h-80 rounded-full bg-lockora-accent/10 blur-[100px] animate-pulse-slow" style={{animationDelay: '-2s'}}></div>
       </div>
       
       <div className="container-padding mx-auto relative z-10">
-        <div className="text-center mb-10 md:mb-16">
+        <div className="text-center mb-12 md:mb-16">
           <div
             ref={titleRef as React.RefObject<HTMLDivElement>}
             className={`transition-all duration-700 ${isTitleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
@@ -87,8 +95,8 @@ const CountdownSection: React.FC = () => {
               <span className="animate-pulse mr-2 h-2 w-2 rounded-full bg-lockora-emerald"></span>
               Coming Soon
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 md:mb-4 text-white">
-              We're Launching <span className="gradient-text">Soon</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-5 text-white">
+              We're Launching in <span className="gradient-text">30 Days</span>
             </h2>
             <p className="text-lockora-silver text-base md:text-lg max-w-xl mx-auto px-4 sm:px-0">
               Our team is working hard to bring you the ultimate privacy solution. 
@@ -101,8 +109,8 @@ const CountdownSection: React.FC = () => {
           ref={countdownRef as React.RefObject<HTMLDivElement>}
           className={`transition-all duration-700 delay-100 ${isCountdownVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
         >
-          <MouseParallax factor={0.01}>
-            <div className="flex justify-center gap-2 sm:gap-3 md:space-x-8 mb-10 md:mb-16">
+          <MouseParallax factor={0.015}>
+            <div className="grid grid-cols-2 md:flex md:justify-center gap-3 sm:gap-4 md:gap-6 mb-12 md:mb-16 px-4 sm:px-0">
               <CountdownUnit value={timeRemaining.days} label="Days" />
               <CountdownUnit value={timeRemaining.hours} label="Hours" />
               <CountdownUnit value={timeRemaining.minutes} label="Minutes" />
@@ -110,7 +118,7 @@ const CountdownSection: React.FC = () => {
             </div>
           </MouseParallax>
           
-          {/* Redesigned Calendar Icon */}
+          {/* Calendar Icon - Improved design */}
           <div className="flex justify-center mb-10 md:mb-16">
             <div className="w-20 h-20 sm:w-24 sm:h-24 relative animate-float">
               <div className="absolute inset-0 bg-lockora-emerald/30 rounded-xl blur-xl"></div>
