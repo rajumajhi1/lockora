@@ -6,6 +6,7 @@ import RebrandingBanner from '../components/RebrandingBanner';
 import FeaturesGrid from '../components/FeaturesGrid';
 import CountdownSection from '../components/CountdownSection';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 import { initScrollAnimations } from '../utils/animations';
 
 const Index: React.FC = () => {
@@ -16,21 +17,31 @@ const Index: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen">
-      <NavBar />
+    <>
+      <SEO 
+        title="Premium Privacy & Security Solution"
+        description="Lockora is the premium solution for securing your most sensitive data with military-grade encryption, biometric protection, and intuitive privacy controls."
+        keywords="privacy, security, data protection, encryption, biometric, cloud sync"
+      />
       
-      {/* Main Content */}
-      <main>
-        <HeroSection />
-        <div className="container-padding mx-auto">
-          <RebrandingBanner />
-        </div>
-        <FeaturesGrid />
-        <CountdownSection />
-      </main>
-      
-      <Footer />
-    </div>
+      <div className="relative min-h-screen">
+        <header>
+          <NavBar />
+        </header>
+        
+        {/* Main Content */}
+        <main>
+          <HeroSection />
+          <article className="container-padding mx-auto">
+            <RebrandingBanner />
+          </article>
+          <FeaturesGrid />
+          <CountdownSection />
+        </main>
+        
+        <Footer />
+      </div>
+    </>
   );
 };
 
